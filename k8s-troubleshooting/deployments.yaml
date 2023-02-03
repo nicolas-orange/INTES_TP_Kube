@@ -1,0 +1,48 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-api-app
+spec:
+  selector:
+    matchLabels:
+      app: demo-api-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: demo-api-app
+    spec:
+      containers:
+      - name: demo-api-app
+        image: paulbouwer/hello-kubernetes:1.8
+        env:
+        - name: MESSAGE
+          value: API
+        - name: PORT
+          value: "8888"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-www-app
+spec:
+  selector:
+    matchLabels:
+      app: demo-www-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: demo-www-app
+    spec:
+      containers:
+      - name: demo-www-app
+        image: paulbouwer/hello-kubernetes:1.8
+        env:
+        - name: MESSAGE
+          value: WWW
+        - name: PORT
+          value: "8888"
